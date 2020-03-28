@@ -1,0 +1,60 @@
+// mixin
+@mixin error{
+  vertical-align: top;
+  cursor: text;
+  background-repeat: repeat-x;
+  background-position: bottom; 
+}
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30px;
+    #maincontent{
+        height: 80vh;
+        width: 100%;
+        #error-overlay{
+          z-index: -1;
+          position: absolute;
+          color: transparent ;
+          display: inline-block;
+          width: 80%;
+          white-space: pre;
+          .text-error {
+            @include error;
+            background-image: url("image/underline.png");
+          }
+          .text-warning {
+            @include error;
+            background-image: url("image/warningunderline.png");             
+          }
+      }
+      #WritingPad{
+        height: 100vh;
+        resize: none;
+        vertical-align: top;
+        display: inline-block;
+        width: 80%;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: transparent;
+        white-space: pre;
+        font-size: 30px;
+        border: none;
+      }
+      #feedback{
+          background-color: lightgray;
+          display: inline-block;
+          width: 15%;
+          height: 70vh;
+      }
+    }
+}
+#rightClickMenu{
+  z-index: 2;
+  position: absolute;
+  border-radius: 5px;
+  background-color: black;
+  .actionItem{
+    font-family: Arial, Helvetica, sans-serif;
+    color: lightgray;
+    border-top: 1px solid lightgray;
+  }
+}
