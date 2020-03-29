@@ -24,15 +24,26 @@ export let ruleSet =
     { "pattern": /\s"\s/g, "options":[] , "type": "error"  },
     { "pattern": /[1-9]\s[1-9]{1,}\/[1-9]{1,}/g, "options":[] , "type": "error" },
     { "pattern": /\s[\!|\.|\?]/g, "options":[] , "type": "error" },
-    { "pattern": /~/gi, "options":[] , "type": "error" },
-    { "pattern": /\d[-|=|*]\d/gi, "options":[] , "type": "error" },
-    { "pattern": /\*/gi, "options":["[*]"] , "type": "warning" },
-    { "pattern": /æ/gi, "options":["[ae]"] , "type": "warning"},
-    { "pattern": /œ/gi, "options":["[oe]"] , "type": "warning"},
-    { "pattern": "_", "options":[""] , "type": "special"},
-    { "pattern": "^", "options":[""] , "type": "special"},
-    { "pattern": "H20", "options":["H_{2}O"] , "type": "special"},
-    {}
+    { "pattern": /~/g, "options":[] , "type": "error" },
+    { "pattern": /\d[=|*]\d/gi, "options":[] , "type": "error" },
+    { "pattern": /æ/g, "options":["[ae]"] , "type": "warning"},
+    { "pattern": /œ/g, "options":["[oe]"] , "type": "warning"},
+    { "pattern": /_/g, "options":["-"] , "type": "special"},
+    { "pattern": /¯/g, "options":[""] , "type": "error"},
+    { "pattern": /¨/g, "options":[""] , "type": "error"},
+    { "pattern": /·/g, "options":[""] , "type": "error"},
+    { "pattern": /`/g, "options":[""] , "type": "error"},
+    { "pattern": /´/g, "options":[""] , "type": "error"},
+    { "pattern": /∨/g, "options":[""] , "type": "error"},
+    { "pattern": /∪/g, "options":[""] , "type": "error"},
+    { "pattern": /˜/g, "options":[""] , "type": "error"},
+    { "pattern": /¸/g, "options":[""] , "type": "error"},
+    { "pattern": /\^/g, "options":[""] , "type": "special"},
+    { "pattern": /\*/g, "options":["[*]"] , "type": "warning" },
+    { "pattern": /ſ/g, "options":["s", "S"] , "type": "error"},
+    { "pattern": /[α-ωΑ-Ω]/g, "options":[] , "type": "error"},
+    { "pattern": /\—/g, "options":[] , "type": "error"},
+    { "pattern": /[†|‡|§]/g, "options":[] , "type": "error"}
 ]
 // rules to add
 // rules to add space before end of line mark
@@ -55,6 +66,11 @@ export let ruleSet =
 // ſ long s 
 // `
 // “ ”. 
-// would n't 't is did n't 
+// would n't 't is did n't
 // ---
 //?...
+//{ "pattern": /\*/g, "options":["[*]"] , "type": "warning" },
+//{ "pattern": /\^/g, "options":[""] , "type": "special"},
+//{ "pattern": /H20/gi, "options":["H_{2}O"] , "type": "warning"},
+//{ "pattern": /C2O/gi, "options":["C_{2}O"] , "type": "warning"},
+//{ "pattern": /O2/gi, "options":["O_{2}"] , "type": "warning"},

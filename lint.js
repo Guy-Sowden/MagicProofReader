@@ -26,7 +26,7 @@ window.addEventListener('load', () => {
                     });
                 }
             }
-
+            console.log(rule.pattern)
             //sort matches by position 
             interimMatches = interimMatches.sort((a , b) =>{
                 if(a.position[0] > b.position[0]) return 1 
