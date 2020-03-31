@@ -26,6 +26,10 @@ body{
             @include error;
             background-image: url("image/warningunderline.png");             
           }
+          .text-special {
+            @include error;
+            background-image: url("image/specailunderline.png");             
+          }
       }
       #WritingPad{
         height: 100vh;

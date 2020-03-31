@@ -28,6 +28,13 @@ body #maincontent #error-overlay .text-warning {
   background-position: bottom;
   background-image: url("image/warningunderline.png");
 }
+body #maincontent #error-overlay .text-special {
+  vertical-align: top;
+  cursor: text;
+  background-repeat: repeat-x;
+  background-position: bottom;
+  background-image: url("image/specailunderline.png");
+}
 body #maincontent #WritingPad {
   height: 100vh;
   resize: none;

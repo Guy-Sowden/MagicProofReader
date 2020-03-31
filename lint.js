@@ -7,16 +7,19 @@ window.addEventListener('load', () => {
     let matches =[];
     //detect when user change text WritingPad
     //rerun models
+    resizeWritingPad();
     pad.addEventListener("input", () => {
+        resizeWritingPad();
         overlay.innerHTML= "";
-        let lineNumber =0;
+        let lineNumber = 0;
         matches = []
         for (let sentence of pad.value.split("\n")) {
-            let rule = void 0;
+            let rule = void 0; 
+            sentence = sentence.replace(/</g, "&lt"); // XXS Prevention
             let sentenceWithErrors = sentence;
             let interimMatches = [];
             let interimMatch = "";
-            for (rule of rules.ruleSet) {
+            for (rule of rules.ruleSet){ 
                 while(interimMatch = rule.pattern.exec(sentence)){
                     // add position of matches to array
                     interimMatches.push({
@@ -26,7 +29,6 @@ window.addEventListener('load', () => {
                     });
                 }
             }
-            console.log(rule.pattern)
             //sort matches by position 
             interimMatches = interimMatches.sort((a , b) =>{
                 if(a.position[0] > b.position[0]) return 1 
@@ -41,6 +43,15 @@ window.addEventListener('load', () => {
                     temp[temp.length-1].position[1] = interimMatches[i].position[1];
                 }
                 else{
+                    if(interimMatch != null){
+
+                        //generate random id 
+                        let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+                        for ( let i = 0; i < 7; i++ ) {
+                            result += characters.charAt(Math.floor(Math.random() * characters.length));
+                        }
+                        interimMatch[i].id =  result;
+                    }
                     temp.push(interimMatches[i]);
                 }
             }
@@ -49,22 +60,45 @@ window.addEventListener('load', () => {
             // Add underlines to errors and warnings
             for (let i of interimMatches.reverse()){
                 sentenceWithErrors = sentenceWithErrors.substring(0, i.position[0]) +
-                "<span class='text-"+ i.rule.type +"'>" + 
+                "<span id=" + i.id + " class='text-"+ i.rule.type +"'>" + 
                 sentenceWithErrors.substring(i.position[0], i.position[1])+
                 "</span>"+
                 sentenceWithErrors.substring(i.position[1],sentenceWithErrors.length);
             }
             overlay.innerHTML = overlay.innerHTML + sentenceWithErrors + "\n";
             lineNumber++;
+
+            //generate context menu for error
+            for(let i in interimMatches){
+                document.getElementById(i.id).addEventListener("contextmenu", (e) => {
+                    removeContextMenu();
+                    e.preventDefault()
+                    console.log("right click listeners");
+                    let contextmenu = document.createElement("div");
+                    contextmenu.id ="rightClickMenu";
+
+                    //set posistion of context menu 
+                    console.log(e.pageX+ " "+ e.pageY);
+                    contextmenu.style.left =  e.pageX + "px";
+                    contextmenu.style.top = e.pageY + "px";
+
+                    // add values to context menu
+                    let options = i.rule.options
+                    for(let i of options ){
+                        let action = document.createElement("div");
+                        console.log(i);
+                        action.innerText = i;
+                        action.classList.add("actionItem");
+                        contextmenu.appendChild(action);
+                    }
+                    document.body.appendChild(contextmenu);
+                    return false;
+                
+                })
+            }
             matches.push(interimMatches);
         }
     }, false);
-
-    //TODO match scroll postion of overlay with writing pad
-    pad.addEventListener("scroll", () =>{
-        console.log("scrolling")
-        overlay.scrollTo([pad.scrollTop, pad.scrollLeft ])
-    });
 
 
     pad.addEventListener("click", () => {
@@ -80,7 +114,7 @@ window.addEventListener('load', () => {
                 // find length of predings line to convert absulute posistion in text box to line posistion
                 if(cursorPosition >= totalLineLength + i.position[0] && cursorPosition <= totalLineLength + i.position[1]){
                     // set the text of the feedback box
-                    if(i.rule.usageNote != null) feedbackBox.innerText = i.rule.usageNote;
+                    if(i.rule.usageNote != null) feedbackBox.innerHTML = i.rule.usageNote;
                     else feedbackBox.innerText = ""
                 }
             }
@@ -88,38 +122,18 @@ window.addEventListener('load', () => {
             lineIndex++;
         }
     });
+
+    function resizeWritingPad(){
+        pad.style.height = pad.scrollHeight +"px";
+        pad.style.width = pad.scrollWidth +"px";
+    }
     
 });
-
-// reposition context menu with custom menu
-document.addEventListener( "contextmenu", (e) => {
-    //Todo Remove scroll body
-    removeContextMenu();
-    e.preventDefault()
-    console.log("right click listeners");
-    let contextmenu = document.createElement("div");
-    contextmenu.id ="rightClickMenu";
-    console.log(e.pageX+ " "+ e.pageY);
-    contextmenu.style.left =  e.pageX + "px";
-    contextmenu.style.top = e.pageY + "px";
-     // TODO REPLACE HARD CODED VALUES
-    // add values to context menu
-    let options = []
-    for(let i of options ){
-        let action = document.createElement("div");
-        console.log(i);
-        action.innerText = i;
-        action.classList.add("actionItem");
-        contextmenu.appendChild(action);
-    }
-    document.body.appendChild(contextmenu);
-    return false;
-
-})
 
 document.addEventListener( "click", (e) => {
     removeContextMenu();
 });
+
 
 function removeContextMenu(){
     let contextmenu = document.getElementById("rightClickMenu")
