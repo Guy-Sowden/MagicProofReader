@@ -21,7 +21,7 @@ window.addEventListener('load', () => {
         matches = []
         for (let sentence of pad.value.split("\n")) {
             let rule = void 0; 
-            sentence = sentence.replace(/<\/?span[^>]*>/g); // XXS Prevention
+            sentence = sentence.replace(/</g, "&lt"); // XXS Prevention
             let sentenceWithErrors = sentence;
             let interimMatches = [];
             let interimMatch = "";
