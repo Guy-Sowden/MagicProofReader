@@ -6,6 +6,7 @@ window.addEventListener('load', () => {
     let feedbackBox = document.getElementById("feedback");
     let matches =[];
     let scanedDivs = true;
+    scanPad();
     //detect when user change text WritingPad
     //rerun models
     resizeWritingPad();
@@ -19,17 +20,20 @@ window.addEventListener('load', () => {
         scanedDivs = true;
         let lineNumber = 0;
         matches = []
-        for (let sentence of pad.value.split("\n")) {
-            let rule = void 0; 
+        for (let sentence of pad.value.split("\n")) { 
             sentence = sentence.replace(/</g, "&lt"); // XXS Prevention
             let sentenceWithErrors = sentence;
             let interimMatches = [];
-            let interimMatch = "";
-            for (rule of rules.ruleSet){ 
-                while(interimMatch = rule.pattern.exec(sentence)){
+            let interimMatch;
+            for (let rule of rules.ruleSet){ 
+                while ((interimMatch = rule.pattern.exec(sentence)) !== null){
+                    console.log(interimMatch)
                     // add position of matches to array
                     interimMatches.push({
-                        "position":[interimMatch.index, interimMatch.index + interimMatch.toString().length],
+                        "position":[interimMatch.index + 
+                            interimMatch[0].indexOf(interimMatch[interimMatch.length -1]), 
+                            interimMatch.index + interimMatch[0].indexOf(interimMatch[interimMatch.length -1]) + 
+                            interimMatch[interimMatch.length -1].length],
                         "rule":rule,
                         "lineNumber":lineNumber
                     });
