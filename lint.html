@@ -5,20 +5,20 @@
     <link rel="stylesheet" href="./lint.css">
   </head>
   <body>
-    <h1>PGDP Linter Demo</h1>
+    <h1>MAGIC PROOFREADER</h1>
+    <button id="speak">speak</button>
+    <button id="pause">pause</button>
+    <button id="stop">stop</button>
     <div id="maincontent">
     <div id="error-overlay"></div>
     <textarea id="WritingPad" autocomplete="off" spellcheck="false">
- PROOFREADING GUIDELINESFORMATTING—PARAGRAPHS
-—PUNCTUATION—HYPHENS & DASHES—FOOTNOTESN
-general, make sure that the text you areproofreading matches the original book.However, ignore bold or italics appearance.
-]Proofread only the content. Sometimes thetext will appear with <i>markup</i> tags<b>around</b> it.  
     </textarea>
     <div id="feedback">
     </div>
     </div>
   </body>
   <foot>
+    <script src="SpeechSynthesis.js"></script>
     <script type="module" src="lint.js"></script>
   </foot>
 </html>
