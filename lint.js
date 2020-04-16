@@ -53,6 +53,7 @@ window.addEventListener('load', () => {
         if (i > 0 && interimMatches[i-1].position[1] >= interimMatches[i]
             .position[0]) {
           temp[temp.length-1].position[1] = interimMatches[i].position[1];
+          temp[temp.length-1].options = [];
         } else {
           if (interimMatches[i] != null) {
             interimMatches[i].id = randomID();
