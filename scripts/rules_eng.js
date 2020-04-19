@@ -87,9 +87,13 @@ const ruleSet =
       {'pattern': /(\s)(\"|\')$/g, 'options': [], 'type': 'error'},
       {'pattern': /^(;|:)/g, 'options': [], 'type': 'error'},
       {'pattern': /\w,\w/g, 'options': [], 'type': 'error'},
-      {'pattern': /0\'/g, 'options': ["o'"], 'type': 'warning'},
-      {'pattern': /(?:\w)\.\.\.\s/g, 'options': ["o'"], 'type': 'warning'},
-      {'pattern': /(?:\w)"(?:\w)/g, 'options': ["o'"], 'type': 'warning'},
+      {'pattern': /0\'/g, 'options': ['o'], 'type': 'warning'},
+      {'pattern': /(?:\w)\.\.\.\s/g, 'options': [], 'type': 'warning'},
+      {'pattern': /(?:\w)"(?:\w)/g, 'options': [], 'type': 'warning'},
+      {'pattern': /(?:\w)(<|\{|\[)/g, 'options': [], 'type': 'warning'},
+      {'pattern': /(&lt|{\]|\/)(?:\w)/g, 'options': [], 'type': 'warning'},
+      {'pattern': /([A-Z]{2,})(?:[a-z])/g, 'options': [], 'type': 'warning'},
+     // {'pattern': /(?:\b|\s|^)\.(\s)?\.(?!\.)/g, 'options': [], 'type': 'error'},
     ];
 // rules to add
 // H_{2}O, 0_{2}, CO_{2}
@@ -111,3 +115,11 @@ const ruleSet =
 // ..
 // a pretty side dish/
 // together1
+// pan, and make the surface smooth. .Keep out
+// Gravy Sou/i.
+//
+// A rich IVhite Soup.
+// Peel an<L slice six large onions, six potatoes, six
+// mash. Pick fifty crawfish, or a hundred prawns',
+// Jelly to cox>er cold Fish.
+// cups or basons to form cakes;and when cold, turn
